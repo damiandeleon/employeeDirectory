@@ -1,10 +1,12 @@
 
 .header {
     padding: 25px 0;
-    color:;
-    background-color: rgb(221, 163, 109);
+    color: whitesmoke;
+    background-color: rgb(10, 10, 48);
     width: 100%;
     text-align: center;
-    border-bottom: 10px solid slategrey;
+    border-bottom: 10px orangered;
     margin-bottom: 10px;
+    font-family:serif;
+    font-size:larger;
 }
