@@ -3,7 +3,7 @@ import SearchUser from "../SearchUser";
 
 function Nav() {
     return (
-        <nav className="navbar navbar-light bg-primary">
+        <nav className="navbar navbar-light bg-dark">
            <SearchUser/>
         </nav>
     )

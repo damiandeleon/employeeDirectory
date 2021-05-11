@@ -1,0 +1,10 @@
+
+.header {
+    padding: 25px 0;
+    color:;
+    background-color: rgb(221, 163, 109);
+    width: 100%;
+    text-align: center;
+    border-bottom: 10px solid slategrey;
+    margin-bottom: 10px;
+}
