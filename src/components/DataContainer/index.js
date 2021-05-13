@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
 import EmployeeTable from '../EmployeeTable/index'
+import SearchUser from '../SearchUser';
 import './DataContainer.css'
 
 class DataContainer extends Component {
@@ -116,7 +117,7 @@ class DataContainer extends Component {
 
     render() {
         return (
-
+            <SearchUser/>,
             <div className="container mt-4">
                 <EmployeeTable
                     state={this.state}
