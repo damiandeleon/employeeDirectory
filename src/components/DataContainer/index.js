@@ -21,7 +21,6 @@ class DataContainer extends Component {
         };
     }
 
-    // When this component mounts, load random users as employees from https://randomuser.me/
     componentDidMount() {
         API.getUsers()
             .then((res) =>
@@ -33,19 +32,19 @@ class DataContainer extends Component {
             .catch((err) => console.log(err));
     }
 
-    // Update search state to filter by employee name
     handleInputChange = (event) => {
         const value = event.target.value;
         this.setState({ search: value });
         this.filterEmployees(value.toLowerCase().trim());
     };
 
+    //need to finish writing code for the handleFormSubmit funciton
     handleFormSubmit = (event) => {
         event.preventDefault();
+
     };
 
-    // Sort with the key of specified object.
-    // If key has children, sort by primary child and optionally a secondary child. i.e. sort by last name, then first.
+
     sortBy = (key, primary = 0, secondary = 0) => {
         let sortedEmployees = this.state.filteredEmployees;
         if (this.state.sortDirections[key]) {
@@ -61,8 +60,7 @@ class DataContainer extends Component {
                 a = a[key];
                 b = b[key];
 
-                // If secondary comparison given and primary comparison is equal
-                // Example: Sorting by last name, if last names are equal, then sort that instance by first name instead.
+
                 if (primary) {
                     if (secondary && a[primary] === b[primary]) {
                         return a[secondary].localeCompare(b[secondary]);
@@ -118,7 +116,7 @@ class DataContainer extends Component {
     render() {
         return (
             <SearchUser/>,
-            <div className="container mt-4">
+            <div className=" containerBackground container mt-4">
                 <EmployeeTable
                     state={this.state}
                     sortBy={this.sortBy}

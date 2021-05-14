@@ -3,7 +3,7 @@ import React from "react";
 const SearchUser = (props) => {
     return (
         <div>
-            <form className="d-flex">
+            <form className="searchBackground d-flex">
                 <input 
                 className="form-control me-2" 
                 value={props.value}

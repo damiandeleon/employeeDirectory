@@ -1,1 +1,4 @@
-
+.containerBackground {
+    background-color: rgb(248, 246, 255) ;
+    border: thin black solid;
+}
