@@ -10,6 +10,8 @@ class DataContainer extends Component {
         employees: [],
         filteredEmployees: [],
         sortDirections: this.initialSortDirections,
+        results: [],
+        error: ""
     };
 
     get initialSortDirections() {
@@ -38,10 +40,19 @@ class DataContainer extends Component {
         this.filterEmployees(value.toLowerCase().trim());
     };
 
-    //need to finish writing code for the handleFormSubmit funciton
-    handleFormSubmit = (event) => {
-        event.preventDefault();
 
+    handleFormSubmit = (event) => {
+        console.log("You've hot the handleFormSubmit function")
+        event.preventDefault();
+        const search = event.target.value;
+        API.searchEmployees(search)
+        .then(res => {
+            if (res.data.status === "error") {
+                throw new Error(res.data.message);
+            }
+            this.setState({ results: res.data.message, error: "" });
+        })
+        .catch(err => this.setState({ error: err.message }));
     };
 
 
@@ -115,7 +126,7 @@ class DataContainer extends Component {
 
     render() {
         return (
-            <SearchUser/>,
+            <SearchUser />,
             <div className=" containerBackground container mt-4">
                 <EmployeeTable
                     state={this.state}
