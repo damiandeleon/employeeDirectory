@@ -4,7 +4,4 @@ export default {
     getUsers:function(){
         return axios.get("https://randomuser.me/api/?results=25&nat=us");
     },
-    searchEmployees:function(employee) {
-        return axios.get("https://randomuser.me/api/?name=" + employee);
-    }
-};
+}
