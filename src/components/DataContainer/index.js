@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
-import EmployeeTable from '../EmployeeTable/index'
-import SearchUser from '../SearchUser';
-import './DataContainer.css'
+import EmployeeTable from '../EmployeeTable/index';
+import './DataContainer.css';
+import Navbar from '../Navbar/index';
 
 class DataContainer extends Component {
+   
     state = {
         search: "",
         employees: [],
-        filteredEmployees: [],
         sortDirections: this.initialSortDirections,
         results: [],
         error: ""
@@ -26,9 +26,8 @@ class DataContainer extends Component {
     componentDidMount() {
         API.getUsers()
             .then((res) =>
-                 this.setState({
+                this.setState({
                     employees: res.data.results,
-                    filteredEmployees: res.data.results,
                 }),
             )
             .catch((err) => console.log(err));
@@ -44,30 +43,14 @@ class DataContainer extends Component {
     handleFormSubmit = (event) => {
         console.log("You've hot the handleFormSubmit function")
         event.preventDefault();
-        const search = event.target.value;
-        API.searchEmployees(search)
-        .then(res => {
-            if (res.data.status === "error") {
-                throw new Error(res.data.message);
-            }
-            this.setState({ results: res.data.message, error: "" });
-        })
-        .catch(err => this.setState({ error: err.message }));
+
     };
 
 
-    sortBy = (key, primary = 0, secondary = 0) => {
-        let sortedEmployees = this.state.filteredEmployees;
-        if (this.state.sortDirections[key]) {
-            this.setState({
-                filteredEmployees: sortedEmployees.reverse(),
-                sortDirections: {
-                    ...this.initialSortDirections,
-                    [key]: this.state.sortDirections[key] === "asc" ? "desc" : "asc",
-                },
-            });
-        } else {
-            sortedEmployees = this.state.filteredEmployees.sort((a, b) => {
+    sortBy = (key, primary, secondary) => {
+        let sortedEmployees = this.state.employees;
+         {
+            sortedEmployees = this.state.employees.sort((a, b) => {
                 a = a[key];
                 b = b[key];
 
@@ -83,7 +66,7 @@ class DataContainer extends Component {
             });
 
             this.setState({
-                filteredEmployees: sortedEmployees,
+                employees: sortedEmployees,
                 sortDirections: {
                     ...this.initialSortDirections,
                     [key]: "asc",
@@ -95,7 +78,7 @@ class DataContainer extends Component {
     filterEmployees = (input) => {
         if (input) {
             this.setState({
-                filteredEmployees: this.state.employees.filter((employee) => {
+                employees: this.state.employees.filter((employee) => {
                     return (
                         employee.name.first
                             .toLowerCase()
@@ -109,7 +92,7 @@ class DataContainer extends Component {
                 }),
             });
         } else {
-            this.setState({ filteredEmployees: this.state.employees });
+            this.setState({ employees: this.state.employees });
         }
     };
 
@@ -126,15 +109,21 @@ class DataContainer extends Component {
 
     render() {
         return (
-            <SearchUser />,
+            
+            <Navbar 
+            value={this.state.search}
+            handleInputChange={this.handleInputChange}
+            handleFormSubmit={this.handleFormSubmit}
+            />,
             <div className=" containerBackground container mt-4">
-                <EmployeeTable
-                    state={this.state}
-                    sortBy={this.sortBy}
-                    filterEmployees={this.filterEmployees}
-                    formatDate={this.formatDate}
-                />
-            </div>
+
+            <EmployeeTable
+                state={this.state}
+                sortBy={this.sortBy}
+                filterEmployees={this.filterEmployees}
+                formatDate={this.formatDate}
+            />
+            </div >
 
         );
     }

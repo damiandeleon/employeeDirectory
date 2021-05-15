@@ -12,22 +12,21 @@ const EmployeeTable = (props) => {
             </span>
           </th>
           <th scope="col">
-            <span onClick={() => props.sortBy("phone")}>Phone</span>
+            <span>Phone</span>
           </th>
           <th scope="col">
-            <span onClick={() => props.sortBy("email")}>Email</span>
+            <span>Email</span>
           </th>
           <th scope="col">
-            <span onClick={() => props.sortBy("dob", "date")}>DOB</span>
+            <span >DOB</span>
           </th>
         </tr>
       </thead>
       <tbody>
-        {props.state.filteredEmployees.map((employee) => {
+        {props.state.employees.map((employee) => {
           const { first, last } = employee.name;
           const fullName = `${first} ${last}`;
 
-          // Format date
           const dob = props.formatDate(employee.dob.date);
 
           return (
