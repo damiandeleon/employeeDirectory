@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import API from '../../utils/API';
 import EmployeeTable from '../EmployeeTable/index';
 import './DataContainer.css';
-import Navbar from '../Navbar/index';
+import SearchFilter from '../SearchFilter';
 
 class DataContainer extends Component {
    
@@ -10,8 +10,8 @@ class DataContainer extends Component {
         search: "",
         employees: [],
         sortDirections: this.initialSortDirections,
-        results: [],
-        error: ""
+        filteredEmployees: []
+        // error: ""
     };
 
     get initialSortDirections() {
@@ -28,6 +28,7 @@ class DataContainer extends Component {
             .then((res) =>
                 this.setState({
                     employees: res.data.results,
+                    filteredEmployees: res.data.results,
                 }),
             )
             .catch((err) => console.log(err));
@@ -110,7 +111,7 @@ class DataContainer extends Component {
     render() {
         return (
             
-            <Navbar 
+            <SearchFilter 
             value={this.state.search}
             handleInputChange={this.handleInputChange}
             handleFormSubmit={this.handleFormSubmit}
